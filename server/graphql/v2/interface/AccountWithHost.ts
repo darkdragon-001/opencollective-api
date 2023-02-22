@@ -8,12 +8,12 @@ import { hostResolver } from '../../common/collective';
 import { HostFeeStructure } from '../enum/HostFeeStructure';
 import { PaymentMethodService } from '../enum/PaymentMethodService';
 import { PaymentMethodType } from '../enum/PaymentMethodType';
-import { Host } from '../object/Host';
+import { GraphQLHost } from '../object/Host';
 
 export const AccountWithHostFields = {
   host: {
     description: 'Returns the Fiscal Host',
-    type: Host,
+    type: GraphQLHost,
     resolve: hostResolver,
   },
   hostFeesStructure: {

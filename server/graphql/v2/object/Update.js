@@ -10,9 +10,9 @@ import { UpdateAudienceType } from '../enum';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 
-import { UpdateAudienceStats } from './UpdateAudienceStats';
+import { GraphQLUpdateAudienceStats } from './UpdateAudienceStats';
 
-const Update = new GraphQLObjectType({
+const GraphQLUpdate = new GraphQLObjectType({
   name: 'Update',
   description: 'This represents an Update',
   fields: () => {
@@ -55,7 +55,7 @@ const Update = new GraphQLObjectType({
       publishedAt: { type: GraphQLDateTime },
       notificationAudience: { type: UpdateAudienceType },
       audienceStats: {
-        type: UpdateAudienceStats,
+        type: GraphQLUpdateAudienceStats,
         description: `Some stats about the target audience. Will be null if the update is already published or if you don't have enough permissions so see this information. Not backed by a loader, avoid using this field in lists.`,
         args: {
           audience: {
@@ -190,4 +190,4 @@ const Update = new GraphQLObjectType({
   },
 });
 
-export default Update;
+export default GraphQLUpdate;

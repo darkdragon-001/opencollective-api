@@ -10,10 +10,10 @@ import { ValidationFailed } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { AmountInput, getValueInCentsFromAmountInput } from '../input/AmountInput';
 import { fetchTierWithReference, TierReferenceInput } from '../input/TierReferenceInput';
-import { Order } from '../object/Order';
+import { GraphQLOrder } from '../object/Order';
 
 export const addFundsMutation = {
-  type: new GraphQLNonNull(Order),
+  type: new GraphQLNonNull(GraphQLOrder),
   description: 'Add funds to the given account. Scope: "host".',
   args: {
     fromAccount: { type: new GraphQLNonNull(AccountReferenceInput) },

@@ -7,9 +7,9 @@ import { CommentCollection } from '../collection/CommentCollection';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 
-import { Comment } from './Comment';
+import { GraphQLComment } from './Comment';
 
-const Conversation = new GraphQLObjectType({
+const GraphQLConversation = new GraphQLObjectType({
   name: 'Conversation',
   description: 'A conversation thread',
   fields: () => {
@@ -37,7 +37,7 @@ const Conversation = new GraphQLObjectType({
         },
       },
       body: {
-        type: Comment,
+        type: GraphQLComment,
         description: 'The root comment / starter for this conversation',
         resolve(conversation) {
           return models.Comment.findByPk(conversation.RootCommentId);
@@ -107,4 +107,4 @@ const Conversation = new GraphQLObjectType({
   },
 });
 
-export default Conversation;
+export default GraphQLConversation;

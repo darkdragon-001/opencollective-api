@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import { Application } from '../object/Application';
+import { GraphQLApplication } from '../object/Application';
 
 export const OAuthApplicationCollection = new GraphQLObjectType({
   name: 'OAuthApplicationCollection',
@@ -10,7 +10,7 @@ export const OAuthApplicationCollection = new GraphQLObjectType({
   fields: () => ({
     ...CollectionFields,
     nodes: {
-      type: new GraphQLList(Application),
+      type: new GraphQLList(GraphQLApplication),
     },
   }),
 });

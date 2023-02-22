@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import { VirtualCard } from '../object/VirtualCard';
+import { GraphQLVirtualCard } from '../object/VirtualCard';
 
 export const VirtualCardCollection = new GraphQLObjectType({
   name: 'VirtualCardCollection',
@@ -10,7 +10,7 @@ export const VirtualCardCollection = new GraphQLObjectType({
   fields: () => ({
     ...CollectionFields,
     nodes: {
-      type: new GraphQLList(VirtualCard),
+      type: new GraphQLList(GraphQLVirtualCard),
     },
   }),
 });

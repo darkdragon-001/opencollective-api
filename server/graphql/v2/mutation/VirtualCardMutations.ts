@@ -20,12 +20,12 @@ import { AccountReferenceInput, fetchAccountWithReference } from '../input/Accou
 import { AmountInput, getValueInCentsFromAmountInput } from '../input/AmountInput';
 import { VirtualCardInput } from '../input/VirtualCardInput';
 import { VirtualCardReferenceInput } from '../input/VirtualCardReferenceInput';
-import { VirtualCard } from '../object/VirtualCard';
+import { GraphQLVirtualCard } from '../object/VirtualCard';
 
 const virtualCardMutations = {
   assignNewVirtualCard: {
     description: 'Assign Virtual Card information to existing hosted collective. Scope: "virtualCards".',
-    type: new GraphQLNonNull(VirtualCard),
+    type: new GraphQLNonNull(GraphQLVirtualCard),
     args: {
       virtualCard: {
         type: new GraphQLNonNull(VirtualCardInput),
@@ -104,7 +104,7 @@ const virtualCardMutations = {
   },
   createVirtualCard: {
     description: 'Create new Stripe Virtual Card for existing hosted collective. Scope: "virtualCards".',
-    type: new GraphQLNonNull(VirtualCard),
+    type: new GraphQLNonNull(GraphQLVirtualCard),
     args: {
       name: {
         type: new GraphQLNonNull(GraphQLString),
@@ -203,7 +203,7 @@ const virtualCardMutations = {
   },
   editVirtualCard: {
     description: 'Edit existing Virtual Card information. Scope: "virtualCards".',
-    type: new GraphQLNonNull(VirtualCard),
+    type: new GraphQLNonNull(GraphQLVirtualCard),
     args: {
       virtualCard: {
         type: new GraphQLNonNull(VirtualCardReferenceInput),
@@ -363,7 +363,7 @@ const virtualCardMutations = {
   },
   pauseVirtualCard: {
     description: 'Pause active Virtual Card. Scope: "virtualCards".',
-    type: new GraphQLNonNull(VirtualCard),
+    type: new GraphQLNonNull(GraphQLVirtualCard),
     args: {
       virtualCard: {
         type: new GraphQLNonNull(VirtualCardReferenceInput),
@@ -417,7 +417,7 @@ const virtualCardMutations = {
   },
   resumeVirtualCard: {
     description: 'Resume paused Virtual Card. Scope: "virtualCards".',
-    type: new GraphQLNonNull(VirtualCard),
+    type: new GraphQLNonNull(GraphQLVirtualCard),
     args: {
       virtualCard: {
         type: new GraphQLNonNull(VirtualCardReferenceInput),

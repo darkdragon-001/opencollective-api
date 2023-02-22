@@ -35,18 +35,18 @@ import {
   UPDATE_CHRONOLOGICAL_ORDER_INPUT_DEFAULT_VALUE,
   UpdateChronologicalOrderInput,
 } from '../input/UpdateChronologicalOrderInput';
-import AccountPermissions from '../object/AccountPermissions';
-import { AccountStats } from '../object/AccountStats';
-import { ActivitySubscription } from '../object/ActivitySubscription';
-import { ConnectedAccount } from '../object/ConnectedAccount';
-import { Location } from '../object/Location';
-import { MemberInvitation } from '../object/MemberInvitation';
-import { PaymentMethod } from '../object/PaymentMethod';
-import PayoutMethod from '../object/PayoutMethod';
-import { Policies } from '../object/Policies';
-import { SocialLink } from '../object/SocialLink';
-import { TagStats } from '../object/TagStats';
-import { TransferWise } from '../object/TransferWise';
+import GraphQLAccountPermissions from '../object/AccountPermissions';
+import { GraphQLAccountStats } from '../object/AccountStats';
+import { GraphQLActivitySubscription } from '../object/ActivitySubscription';
+import { GraphQLConnectedAccount } from '../object/ConnectedAccount';
+import { GraphQLLocation } from '../object/Location';
+import { GraphQLMemberInvitation } from '../object/MemberInvitation';
+import { GraphQLPaymentMethod } from '../object/PaymentMethod';
+import GraphQLPayoutMethod from '../object/PayoutMethod';
+import { GraphQLPolicies } from '../object/Policies';
+import { GraphQLSocialLink } from '../object/SocialLink';
+import { GraphQLTagStats } from '../object/TagStats';
+import { GraphQLTransferWise } from '../object/TransferWise';
 import { OrdersCollectionArgs, OrdersCollectionResolver } from '../query/collection/OrdersCollectionQuery';
 import {
   TransactionsCollectionArgs,
@@ -131,7 +131,7 @@ const accountFieldsDefinition = () => ({
     deprecationReason: '2023-01-16: Please use socialLinks',
   },
   socialLinks: {
-    type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SocialLink))),
+    type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLSocialLink))),
     async resolve(collective, _, req) {
       return req.loaders.SocialLink.byCollectiveId.load(collective.id);
     },
@@ -225,7 +225,7 @@ const accountFieldsDefinition = () => ({
   },
   memberInvitations: {
     description: 'Get pending member invitations for this account',
-    type: new GraphQLList(MemberInvitation),
+    type: new GraphQLList(GraphQLMemberInvitation),
     args: {
       role: { type: new GraphQLList(MemberRole) },
     },
@@ -294,14 +294,14 @@ const accountFieldsDefinition = () => ({
     },
   },
   conversationsTags: {
-    type: new GraphQLList(TagStats),
+    type: new GraphQLList(GraphQLTagStats),
     description: "Returns conversation's tags for collective sorted by popularity",
     args: {
       limit: { type: new GraphQLNonNull(GraphQLInt), defaultValue: 30 },
     },
   },
   expensesTags: {
-    type: new GraphQLList(TagStats),
+    type: new GraphQLList(GraphQLTagStats),
     description: 'Returns expense tags for collective sorted by popularity',
     args: {
       limit: { type: new GraphQLNonNull(GraphQLInt), defaultValue: 30 },
@@ -323,7 +323,7 @@ const accountFieldsDefinition = () => ({
     },
   },
   transferwise: {
-    type: TransferWise,
+    type: GraphQLTransferWise,
     async resolve(collective) {
       const connectedAccount = await models.ConnectedAccount.findOne({
         where: { service: 'transferwise', CollectiveId: collective.id },
@@ -336,11 +336,11 @@ const accountFieldsDefinition = () => ({
     },
   },
   payoutMethods: {
-    type: new GraphQLList(PayoutMethod),
+    type: new GraphQLList(GraphQLPayoutMethod),
     description: 'The list of payout methods that this account can use to get paid',
   },
   paymentMethods: {
-    type: new GraphQLList(PaymentMethod),
+    type: new GraphQLList(GraphQLPaymentMethod),
     description: 'The list of payment methods that this account can use to pay for Orders',
     args: {
       type: {
@@ -364,12 +364,12 @@ const accountFieldsDefinition = () => ({
     },
   },
   paymentMethodsWithPendingConfirmation: {
-    type: new GraphQLList(PaymentMethod),
+    type: new GraphQLList(GraphQLPaymentMethod),
     description:
       'The list of payment methods for this account that are pending a client confirmation (3D Secure / SCA)',
   },
   connectedAccounts: {
-    type: new GraphQLList(ConnectedAccount),
+    type: new GraphQLList(GraphQLConnectedAccount),
     description: 'The list of connected accounts (Stripe, Twitter, etc ...)',
   },
   oAuthApplications: {
@@ -391,7 +391,7 @@ const accountFieldsDefinition = () => ({
     },
   },
   location: {
-    type: Location,
+    type: GraphQLLocation,
     description: 'The address associated to this account. This field is always public for collectives and events.',
   },
   categories: {
@@ -399,7 +399,7 @@ const accountFieldsDefinition = () => ({
     description: 'Categories set by Open Collective to help moderation.',
   },
   stats: {
-    type: AccountStats,
+    type: GraphQLAccountStats,
     resolve(collective) {
       return collective;
     },
@@ -629,7 +629,7 @@ const accountFieldsDefinition = () => ({
     },
   },
   policies: {
-    type: new GraphQLNonNull(Policies),
+    type: new GraphQLNonNull(GraphQLPolicies),
     description:
       'Policies for the account. To see non-public policies you need to be admin and have the scope: "account".',
     async resolve(account) {
@@ -637,7 +637,7 @@ const accountFieldsDefinition = () => ({
     },
   },
   activitySubscriptions: {
-    type: new GraphQLList(ActivitySubscription),
+    type: new GraphQLList(GraphQLActivitySubscription),
     description: 'List of activities that the logged-in user is subscribed for this collective',
     args: {
       channel: {
@@ -659,7 +659,7 @@ const accountFieldsDefinition = () => ({
     },
   },
   permissions: {
-    type: new GraphQLNonNull(AccountPermissions),
+    type: new GraphQLNonNull(GraphQLAccountPermissions),
     description: 'Logged-in user permissions on an account',
   },
 });
@@ -818,7 +818,7 @@ export const AccountFields = {
     },
   },
   conversationsTags: {
-    type: new GraphQLList(TagStats),
+    type: new GraphQLList(GraphQLTagStats),
     description: "Returns conversation's tags for collective sorted by popularity",
     args: {
       limit: { type: new GraphQLNonNull(GraphQLInt), defaultValue: 30 },
@@ -828,7 +828,7 @@ export const AccountFields = {
     },
   },
   expensesTags: {
-    type: new GraphQLList(TagStats),
+    type: new GraphQLList(GraphQLTagStats),
     description: 'Returns expense tags for collective sorted by popularity',
     args: {
       limit: { type: new GraphQLNonNull(GraphQLInt), defaultValue: 30 },
@@ -838,7 +838,7 @@ export const AccountFields = {
     },
   },
   payoutMethods: {
-    type: new GraphQLList(PayoutMethod),
+    type: new GraphQLList(GraphQLPayoutMethod),
     description:
       'The list of payout methods that this collective can use to get paid. In most cases, admin only and scope: "expenses".',
     async resolve(collective, _, req) {
@@ -870,7 +870,7 @@ export const AccountFields = {
     },
   },
   paymentMethods: {
-    type: new GraphQLList(PaymentMethod),
+    type: new GraphQLList(GraphQLPaymentMethod),
     args: {
       type: {
         type: new GraphQLList(PaymentMethodType),
@@ -919,7 +919,7 @@ export const AccountFields = {
     },
   },
   paymentMethodsWithPendingConfirmation: {
-    type: new GraphQLList(PaymentMethod),
+    type: new GraphQLList(GraphQLPaymentMethod),
     description:
       'The list of payment methods for this account that are pending a client confirmation (3D Secure / SCA)',
     async resolve(collective, _, req) {
@@ -948,7 +948,7 @@ export const AccountFields = {
     },
   },
   connectedAccounts: {
-    type: new GraphQLList(ConnectedAccount),
+    type: new GraphQLList(GraphQLConnectedAccount),
     description: 'The list of connected accounts (Stripe, Twitter, etc ...). Admin only. Scope: "connectedAccounts".',
     // Only for admins, no pagination
     async resolve(collective, _, req) {
@@ -967,7 +967,7 @@ export const AccountFields = {
   },
   webhooks: accountWebhooks,
   permissions: {
-    type: new GraphQLNonNull(AccountPermissions),
+    type: new GraphQLNonNull(GraphQLAccountPermissions),
     description: 'Logged-in user permissions on an account',
     resolve: collective => collective, // Individual resolvers in `AccountPermissions`
   },

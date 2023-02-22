@@ -2,7 +2,7 @@ import { GraphQLFloat, GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLStr
 
 import { OrderTaxType } from '../enum/OrderTaxType';
 
-export const TaxInfo = new GraphQLObjectType({
+export const GraphQLTaxInfo = new GraphQLObjectType({
   name: 'TaxInfo',
   description: 'Information about a tax',
   fields: () => ({

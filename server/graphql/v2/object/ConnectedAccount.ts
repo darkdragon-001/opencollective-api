@@ -5,7 +5,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { ConnectedAccountService } from '../enum/ConnectedAccountService';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 
-export const ConnectedAccount = new GraphQLObjectType({
+export const GraphQLConnectedAccount = new GraphQLObjectType({
   name: 'ConnectedAccount',
   description: 'This represents a Connected Account',
   fields: () => ({

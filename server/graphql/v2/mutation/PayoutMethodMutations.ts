@@ -12,11 +12,11 @@ import { Forbidden, NotFound, Unauthorized } from '../../errors';
 import { idDecode, IDENTIFIER_TYPES } from '../identifiers';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { PayoutMethodInput } from '../input/PayoutMethodInput';
-import PayoutMethod from '../object/PayoutMethod';
+import GraphQLPayoutMethod from '../object/PayoutMethod';
 
 const payoutMethodMutations = {
   createPayoutMethod: {
-    type: PayoutMethod,
+    type: GraphQLPayoutMethod,
     description: 'Create a new Payout Method to get paid through the platform. Scope: "expenses".',
     args: {
       payoutMethod: {
@@ -68,7 +68,7 @@ const payoutMethodMutations = {
   },
   removePayoutMethod: {
     description: 'Remove the given payout method. Scope: "expenses".',
-    type: new GraphQLNonNull(PayoutMethod),
+    type: new GraphQLNonNull(GraphQLPayoutMethod),
     args: {
       payoutMethodId: {
         type: new GraphQLNonNull(GraphQLString),

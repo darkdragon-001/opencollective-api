@@ -18,11 +18,11 @@ import {
   ConnectedAccountReferenceInput,
   fetchConnectedAccountWithReference,
 } from '../input/ConnectedAccountReferenceInput';
-import { ConnectedAccount } from '../object/ConnectedAccount';
+import { GraphQLConnectedAccount } from '../object/ConnectedAccount';
 
 const connectedAccountMutations = {
   createConnectedAccount: {
-    type: ConnectedAccount,
+    type: GraphQLConnectedAccount,
     description: 'Connect external account to Open Collective Account. Scope: "connectedAccounts".',
     args: {
       connectedAccount: {
@@ -99,7 +99,7 @@ const connectedAccountMutations = {
     },
   },
   deleteConnectedAccount: {
-    type: ConnectedAccount,
+    type: GraphQLConnectedAccount,
     description: 'Delete ConnectedAccount. Scope: "connectedAccounts".',
     args: {
       connectedAccount: {

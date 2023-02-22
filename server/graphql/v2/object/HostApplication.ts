@@ -6,7 +6,7 @@ import { HostApplicationStatus } from '../enum/HostApplicationStatus';
 import { idEncode, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 
-const HostApplication = new GraphQLObjectType({
+const GraphQLHostApplication = new GraphQLObjectType({
   name: 'HostApplication',
   fields: () => ({
     id: {
@@ -42,4 +42,4 @@ const HostApplication = new GraphQLObjectType({
   }),
 });
 
-export default HostApplication;
+export default GraphQLHostApplication;

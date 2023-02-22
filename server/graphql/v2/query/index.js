@@ -1,5 +1,5 @@
 import models from '../../../models';
-import { Individual } from '../object/Individual';
+import { GraphQLIndividual } from '../object/Individual';
 
 import AccountsCollectionQuery from './collection/AccountsCollectionQuery';
 import ActivitiesCollectionQuery from './collection/ActivitiesCollectionQuery';
@@ -54,7 +54,7 @@ const query = {
   paypalPlan: PaypalPlanQuery,
   personalToken: PersonalTokenQuery,
   loggedInAccount: {
-    type: Individual,
+    type: GraphQLIndividual,
     resolve(_, args, req) {
       if (!req.remoteUser) {
         return null;
@@ -64,7 +64,7 @@ const query = {
     },
   },
   me: {
-    type: Individual,
+    type: GraphQLIndividual,
     resolve(_, args, req) {
       if (!req.remoteUser) {
         return null;

@@ -6,7 +6,7 @@ import { isCollectiveSlugReserved } from '../../../lib/collectivelib';
 import models from '../../../models';
 import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { OrganizationCreateInput } from '../input/OrganizationCreateInput';
-import { Organization } from '../object/Organization';
+import { GraphQLOrganization } from '../object/Organization';
 
 const DEFAULT_ORGANIZATION_SETTINGS = {
   features: { conversations: true },
@@ -41,7 +41,7 @@ async function createOrganization(_, args, req) {
 }
 
 const createOrganizationMutation = {
-  type: Organization,
+  type: GraphQLOrganization,
   description: 'Create an Organization. Scope: "account".',
   args: {
     organization: {

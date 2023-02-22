@@ -9,7 +9,7 @@ import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { ValidationFailed } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { FundCreateInput } from '../input/FundCreateInput';
-import { Fund } from '../object/Fund';
+import { GraphQLFund } from '../object/Fund';
 
 const DEFAULT_COLLECTIVE_SETTINGS = {
   features: { conversations: false },
@@ -99,7 +99,7 @@ async function createFund(_, args, req) {
 }
 
 const createFundMutation = {
-  type: Fund,
+  type: GraphQLFund,
   description: 'Create a Fund. Scope: "account".',
   args: {
     fund: {

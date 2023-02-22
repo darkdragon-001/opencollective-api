@@ -6,12 +6,12 @@ import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { Unauthorized } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { SocialLinkInput } from '../input/SocialLinkInput';
-import { SocialLink } from '../object/SocialLink';
+import { GraphQLSocialLink } from '../object/SocialLink';
 
 const socialLinkMutations: GraphQLFieldConfigMap<void, express.Request> = {
   updateSocialLinks: {
     description: 'Updates collective social links',
-    type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SocialLink))),
+    type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLSocialLink))),
     args: {
       account: {
         type: new GraphQLNonNull(AccountReferenceInput),

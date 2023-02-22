@@ -8,11 +8,11 @@ import { CommentUpdateInput } from '../input/CommentUpdateInput';
 import { getConversationDatabaseIdFromReference } from '../input/ConversationReferenceInput';
 import { getDatabaseIdFromExpenseReference } from '../input/ExpenseReferenceInput';
 import { getDatabaseIdFromUpdateReference } from '../input/UpdateReferenceInput';
-import { Comment } from '../object/Comment';
+import { GraphQLComment } from '../object/Comment';
 
 const commentMutations = {
   editComment: {
-    type: Comment,
+    type: GraphQLComment,
     description: 'Edit a comment. Scope: "conversations", "expenses" or "updates".',
     args: {
       comment: {
@@ -25,7 +25,7 @@ const commentMutations = {
     },
   },
   deleteComment: {
-    type: Comment,
+    type: GraphQLComment,
     args: {
       id: {
         type: new GraphQLNonNull(GraphQLString),
@@ -37,7 +37,7 @@ const commentMutations = {
     },
   },
   createComment: {
-    type: Comment,
+    type: GraphQLComment,
     description: 'Create a comment. Scope: "conversations", "expenses" or "updates".',
     args: {
       comment: {

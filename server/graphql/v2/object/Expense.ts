@@ -20,18 +20,18 @@ import { ChronologicalOrderInput } from '../input/ChronologicalOrderInput';
 import { Account } from '../interface/Account';
 import { CollectionArgs } from '../interface/Collection';
 
-import { Activity } from './Activity';
-import { Amount } from './Amount';
-import ExpenseAttachedFile from './ExpenseAttachedFile';
-import ExpenseItem from './ExpenseItem';
-import ExpensePermissions from './ExpensePermissions';
-import ExpenseQuote from './ExpenseQuote';
-import { Location } from './Location';
-import PayoutMethod from './PayoutMethod';
-import RecurringExpense from './RecurringExpense';
-import { SecurityCheck } from './SecurityCheck';
-import { TaxInfo } from './TaxInfo';
-import { VirtualCard } from './VirtualCard';
+import { GraphQLActivity } from './Activity';
+import { GraphQLAmount } from './Amount';
+import GraphQLExpenseAttachedFile from './ExpenseAttachedFile';
+import GraphQLExpenseItem from './ExpenseItem';
+import GraphQLExpensePermissions from './ExpensePermissions';
+import GraphQLExpenseQuote from './ExpenseQuote';
+import { GraphQLLocation } from './Location';
+import GraphQLPayoutMethod from './PayoutMethod';
+import GraphQLRecurringExpense from './RecurringExpense';
+import { GraphQLSecurityCheck } from './SecurityCheck';
+import { GraphQLTaxInfo } from './TaxInfo';
+import { GraphQLVirtualCard } from './VirtualCard';
 
 const EXPENSE_DRAFT_PUBLIC_FIELDS = [
   'items',
@@ -49,7 +49,7 @@ const loadHostForExpense = async (expense, req) => {
     : req.loaders.Collective.hostByCollectiveId.load(expense.CollectiveId);
 };
 
-const Expense = new GraphQLObjectType({
+const GraphQLExpense = new GraphQLObjectType({
   name: 'Expense',
   description: 'This represents an Expense',
   fields: () => {
@@ -79,7 +79,7 @@ const Expense = new GraphQLObjectType({
         deprecationReason: '2022-02-09: Please use amountV2',
       },
       amountV2: {
-        type: Amount,
+        type: GraphQLAmount,
         description: 'Total amount of the expense',
         args: {
           currencySource: {
@@ -116,7 +116,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       taxes: {
-        type: new GraphQLNonNull(new GraphQLList(TaxInfo)),
+        type: new GraphQLNonNull(new GraphQLList(GraphQLTaxInfo)),
         description: 'Taxes applied to this expense',
         resolve(expense, _, req) {
           if (!expense.data?.taxes) {
@@ -214,7 +214,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       payeeLocation: {
-        type: Location,
+        type: GraphQLLocation,
         description: 'The address of the payee',
         async resolve(expense, _, req) {
           const canSeeLocation = await ExpenseLib.canSeeExpensePayeeLocation(req, expense);
@@ -246,7 +246,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       payoutMethod: {
-        type: PayoutMethod,
+        type: GraphQLPayoutMethod,
         description: 'The payout method to use for this expense',
         async resolve(expense, _, req) {
           if (expense.PayoutMethodId) {
@@ -259,7 +259,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       virtualCard: {
-        type: VirtualCard,
+        type: GraphQLVirtualCard,
         description: 'The virtual card used to pay for this charge',
         async resolve(expense, _, req) {
           if (expense.VirtualCardId) {
@@ -268,7 +268,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       attachedFiles: {
-        type: new GraphQLList(new GraphQLNonNull(ExpenseAttachedFile)),
+        type: new GraphQLList(new GraphQLNonNull(GraphQLExpenseAttachedFile)),
         description: '(Optional) files attached to the expense',
         async resolve(expense, _, req) {
           if (await ExpenseLib.canSeeExpenseAttachments(req, expense)) {
@@ -277,7 +277,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       items: {
-        type: new GraphQLList(ExpenseItem),
+        type: new GraphQLList(GraphQLExpenseItem),
         async resolve(expense, _, req) {
           if (await ExpenseLib.canSeeExpenseAttachments(req, expense)) {
             allowContextPermission(req, PERMISSION_TYPE.SEE_EXPENSE_ATTACHMENTS_URL, expense.id);
@@ -309,14 +309,14 @@ const Expense = new GraphQLObjectType({
         description: 'The fees payer for this expense',
       },
       permissions: {
-        type: new GraphQLNonNull(ExpensePermissions),
+        type: new GraphQLNonNull(GraphQLExpensePermissions),
         description: 'The permissions given to current logged in user for this expense',
         async resolve(expense) {
           return expense; // Individual fields are set by ExpensePermissions's resolvers
         },
       },
       activities: {
-        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Activity))),
+        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLActivity))),
         description: 'The list of activities (ie. approved, edited, etc) for this expense ordered by date ascending',
         resolve(expense, _, req) {
           return req.loaders.Expense.activities.load(expense.id);
@@ -359,7 +359,7 @@ const Expense = new GraphQLObjectType({
         },
       },
       quote: {
-        type: ExpenseQuote,
+        type: GraphQLExpenseQuote,
         async resolve(expense, _, req) {
           if (await ExpenseLib.canPayExpense(req, expense)) {
             const quote = await ExpenseLib.quoteExpense(expense, { req });
@@ -377,13 +377,13 @@ const Expense = new GraphQLObjectType({
         },
       },
       recurringExpense: {
-        type: RecurringExpense,
+        type: GraphQLRecurringExpense,
         async resolve(expense) {
           return expense.getRecurringExpense();
         },
       },
       securityChecks: {
-        type: new GraphQLList(SecurityCheck),
+        type: new GraphQLList(GraphQLSecurityCheck),
         async resolve(expense, _, req) {
           if (await ExpenseLib.canSeeExpenseSecurityChecks(req, expense)) {
             return checkExpense(expense);
@@ -394,4 +394,4 @@ const Expense = new GraphQLObjectType({
   },
 });
 
-export { Expense };
+export { GraphQLExpense };

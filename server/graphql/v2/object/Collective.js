@@ -5,7 +5,7 @@ import { Account, AccountFields } from '../interface/Account';
 import { AccountWithContributions, AccountWithContributionsFields } from '../interface/AccountWithContributions';
 import { AccountWithHost, AccountWithHostFields } from '../interface/AccountWithHost';
 
-export const Collective = new GraphQLObjectType({
+export const GraphQLCollective = new GraphQLObjectType({
   name: 'Collective',
   description: 'This represents a Collective account',
   interfaces: () => [Account, AccountWithHost, AccountWithContributions],

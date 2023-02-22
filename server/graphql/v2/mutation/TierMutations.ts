@@ -14,7 +14,7 @@ import { getValueInCentsFromAmountInput } from '../input/AmountInput';
 import { TierCreateInput, TierCreateInputFields } from '../input/TierCreateInput';
 import { fetchTierWithReference, TierReferenceInput } from '../input/TierReferenceInput';
 import { TierUpdateInput, TierUpdateInputFields } from '../input/TierUpdateInput';
-import { Tier } from '../object/Tier';
+import { GraphQLTier } from '../object/Tier';
 
 // Makes sure we default to `undefined` if the amount is not set to not override existing values with `null`
 const getAmountWithDefault = (amountInput, existingAmount = undefined) =>
@@ -65,7 +65,7 @@ const transformTierInputToAttributes = (
 
 const tierMutations = {
   editTier: {
-    type: new GraphQLNonNull(Tier),
+    type: new GraphQLNonNull(GraphQLTier),
     description: 'Edit a tier.',
     args: {
       tier: {
@@ -100,7 +100,7 @@ const tierMutations = {
     },
   },
   createTier: {
-    type: new GraphQLNonNull(Tier),
+    type: new GraphQLNonNull(GraphQLTier),
     description: 'Create a tier.',
     args: {
       tier: {
@@ -136,7 +136,7 @@ const tierMutations = {
     },
   },
   deleteTier: {
-    type: new GraphQLNonNull(Tier),
+    type: new GraphQLNonNull(GraphQLTier),
     description: 'Delete a tier.',
     args: {
       tier: {

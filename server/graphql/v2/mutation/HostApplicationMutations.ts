@@ -25,9 +25,9 @@ import { ProcessHostApplicationAction } from '../enum/ProcessHostApplicationActi
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { InviteMemberInput } from '../input/InviteMemberInput';
 import { Account } from '../interface/Account';
-import Conversation from '../object/Conversation';
+import GraphQLConversation from '../object/Conversation';
 
-const ProcessHostApplicationResponse = new GraphQLObjectType({
+const GraphQLProcessHostApplicationResponse = new GraphQLObjectType({
   name: 'ProcessHostApplicationResponse',
   fields: () => ({
     account: {
@@ -35,7 +35,7 @@ const ProcessHostApplicationResponse = new GraphQLObjectType({
       description: 'The account that applied to the host',
     },
     conversation: {
-      type: Conversation,
+      type: GraphQLConversation,
       description: 'When sending a public message, this field will have the info about the conversation created',
     },
   }),
@@ -160,7 +160,7 @@ const HostApplicationMutations = {
     },
   },
   processHostApplication: {
-    type: new GraphQLNonNull(ProcessHostApplicationResponse),
+    type: new GraphQLNonNull(GraphQLProcessHostApplicationResponse),
     description: 'Reply to a host application. Scope: "host".',
     args: {
       account: {

@@ -4,7 +4,7 @@ import { GraphQLDateTime } from 'graphql-scalars';
 import { SocialLinkTypeEnum } from '../enum/SocialLinkTypeEnum';
 import URL from '../scalar/URL';
 
-export const SocialLink = new GraphQLObjectType({
+export const GraphQLSocialLink = new GraphQLObjectType({
   name: 'SocialLink',
   description: 'A social link',
   fields: () => ({

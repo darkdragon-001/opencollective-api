@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import { Contributor } from '../object/Contributor';
+import { GraphQLContributor } from '../object/Contributor';
 
 const ContributorCollection = new GraphQLObjectType({
   name: 'ContributorCollection',
@@ -10,7 +10,7 @@ const ContributorCollection = new GraphQLObjectType({
   fields: () => ({
     ...CollectionFields,
     nodes: {
-      type: new GraphQLList(Contributor),
+      type: new GraphQLList(GraphQLContributor),
     },
   }),
 });

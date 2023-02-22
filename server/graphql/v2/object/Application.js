@@ -5,10 +5,10 @@ import { checkScope } from '../../common/scope-check';
 import { ApplicationType } from '../enum';
 import { idEncode } from '../identifiers';
 import { Account } from '../interface/Account';
-import { OAuthAuthorization } from '../object/OAuthAuthorization';
+import { GraphQLOAuthAuthorization } from '../object/OAuthAuthorization';
 import URL from '../scalar/URL';
 
-export const Application = new GraphQLObjectType({
+export const GraphQLApplication = new GraphQLObjectType({
   name: 'Application',
   description: 'An OAuth application.',
   fields: () => ({
@@ -81,7 +81,7 @@ export const Application = new GraphQLObjectType({
       },
     },
     oAuthAuthorization: {
-      type: OAuthAuthorization,
+      type: GraphQLOAuthAuthorization,
       async resolve(application, args, req) {
         if (!req.remoteUser || !checkScope(req, 'account')) {
           return null;

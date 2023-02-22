@@ -14,7 +14,7 @@ import { checkRemoteUserCanRoot, checkRemoteUserCanUseAccount } from '../../comm
 import { BadRequest, Forbidden, Unauthorized, ValidationFailed } from '../../errors';
 import { MemberRole } from '../enum';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
-import { Member } from '../object/Member';
+import { GraphQLMember } from '../object/Member';
 
 const isLastAdmin = async (account, memberAccount) => {
   // When checking if the member is the last admin for Minimum Amount of Admins policy,
@@ -32,7 +32,7 @@ const isLastAdmin = async (account, memberAccount) => {
 
 const memberMutations = {
   editPublicMessage: {
-    type: new GraphQLNonNull(Member),
+    type: new GraphQLNonNull(GraphQLMember),
     description: 'Edit the public message for the given Member of a Collective. Scope: "account".',
     args: {
       fromAccount: {
@@ -67,7 +67,7 @@ const memberMutations = {
     },
   },
   createMember: {
-    type: new GraphQLNonNull(Member),
+    type: new GraphQLNonNull(GraphQLMember),
     description: '[Root only] Create a member entry directly. For non-root users, use `inviteMember`',
     args: {
       memberAccount: {
@@ -109,7 +109,7 @@ const memberMutations = {
     },
   },
   editMember: {
-    type: new GraphQLNonNull(Member),
+    type: new GraphQLNonNull(GraphQLMember),
     description: 'Edit an existing member of the Collective. Scope: "account".',
     args: {
       memberAccount: {

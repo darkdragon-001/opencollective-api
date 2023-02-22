@@ -3,10 +3,10 @@ import { GraphQLBoolean, GraphQLNonNull } from 'graphql';
 
 import TierModel from '../../../models/Tier';
 import { fetchTierWithReference, TierReferenceInput } from '../input/TierReferenceInput';
-import { Tier } from '../object/Tier';
+import { GraphQLTier } from '../object/Tier';
 
 const TierQuery = {
-  type: Tier,
+  type: GraphQLTier,
   args: {
     tier: {
       type: new GraphQLNonNull(TierReferenceInput),

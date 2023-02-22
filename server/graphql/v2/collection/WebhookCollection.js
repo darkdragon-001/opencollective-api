@@ -3,7 +3,7 @@ import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 import models from '../../../models';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { Collection, CollectionArgs, CollectionFields } from '../interface/Collection';
-import { Webhook } from '../object/Webhook';
+import { GraphQLWebhook } from '../object/Webhook';
 
 export const WebhookCollection = new GraphQLObjectType({
   name: 'WebhookCollection',
@@ -13,7 +13,7 @@ export const WebhookCollection = new GraphQLObjectType({
     return {
       ...CollectionFields,
       nodes: {
-        type: new GraphQLList(Webhook),
+        type: new GraphQLList(GraphQLWebhook),
       },
     };
   },

@@ -7,11 +7,11 @@ import RateLimit, { ONE_HOUR_IN_SECONDS } from '../../../lib/rate-limit';
 import TwoFactorAuthLib from '../../../lib/two-factor-authentication';
 import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { RateLimitExceeded, Unauthorized } from '../../errors';
-import { Individual } from '../object/Individual';
+import { GraphQLIndividual } from '../object/Individual';
 
 const individualMutations = {
   setChangelogViewDate: {
-    type: new GraphQLNonNull(Individual),
+    type: new GraphQLNonNull(GraphQLIndividual),
     description: 'Update the time which the user viewed the changelog updates. Scope: "account".',
     args: {
       changelogViewDate: {
@@ -26,7 +26,7 @@ const individualMutations = {
     },
   },
   setNewsletterOptIn: {
-    type: new GraphQLNonNull(Individual),
+    type: new GraphQLNonNull(GraphQLIndividual),
     description: 'Update newsletter opt-in preference. Scope: "account".',
     args: {
       newsletterOptIn: { type: new GraphQLNonNull(GraphQLBoolean) },
@@ -39,7 +39,7 @@ const individualMutations = {
     },
   },
   setPassword: {
-    type: new GraphQLNonNull(Individual),
+    type: new GraphQLNonNull(GraphQLIndividual),
     description: 'Set password to Individual. Scope: "account". 2FA.',
     args: {
       password: {

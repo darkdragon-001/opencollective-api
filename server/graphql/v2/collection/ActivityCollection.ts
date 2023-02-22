@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import { Activity } from '../object/Activity';
+import { GraphQLActivity } from '../object/Activity';
 
 export const ActivityCollection = new GraphQLObjectType({
   name: 'ActivityCollection',
@@ -11,7 +11,7 @@ export const ActivityCollection = new GraphQLObjectType({
     return {
       ...CollectionFields,
       nodes: {
-        type: new GraphQLList(new GraphQLNonNull(Activity)),
+        type: new GraphQLList(new GraphQLNonNull(GraphQLActivity)),
       },
     };
   },

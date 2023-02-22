@@ -11,12 +11,12 @@ import { Currency } from '../enum';
 import { VirtualCardLimitInterval } from '../enum/VirtualCardLimitInterval';
 import { Account } from '../interface/Account';
 
-import { Individual } from './Individual';
+import { GraphQLIndividual } from './Individual';
 
 const canSeeVirtualCardPrivateInfo = (req, collective) =>
   req.remoteUser?.isAdminOfCollectiveOrHost(collective) && checkScope(req, 'virtualCards');
 
-export const VirtualCard = new GraphQLObjectType({
+export const GraphQLVirtualCard = new GraphQLObjectType({
   name: 'VirtualCard',
   description: 'A Virtual Card used to pay expenses',
   fields: () => ({
@@ -38,7 +38,7 @@ export const VirtualCard = new GraphQLObjectType({
       },
     },
     assignee: {
-      type: Individual,
+      type: GraphQLIndividual,
       async resolve(virtualCard, _, req) {
         if (!virtualCard.UserId) {
           return null;

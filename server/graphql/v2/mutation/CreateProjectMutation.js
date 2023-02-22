@@ -8,7 +8,7 @@ import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { Forbidden, NotFound } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { ProjectCreateInput } from '../input/ProjectCreateInput';
-import { Project } from '../object/Project';
+import { GraphQLProject } from '../object/Project';
 
 const DEFAULT_PROJECT_SETTINGS = {
   collectivePage: {
@@ -79,7 +79,7 @@ async function createProject(_, args, req) {
 }
 
 const createProjectMutation = {
-  type: Project,
+  type: GraphQLProject,
   description: 'Create a Project. Scope: "account".',
   args: {
     project: {

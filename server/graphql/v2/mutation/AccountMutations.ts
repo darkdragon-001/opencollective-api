@@ -29,16 +29,16 @@ import { AccountReferenceInput, fetchAccountWithReference } from '../input/Accou
 import { AccountUpdateInput } from '../input/AccountUpdateInput';
 import { PoliciesInput } from '../input/PoliciesInput';
 import { Account } from '../interface/Account';
-import { Host } from '../object/Host';
-import { Individual } from '../object/Individual';
+import { GraphQLHost } from '../object/Host';
+import { GraphQLIndividual } from '../object/Individual';
 import AccountSettingsKey from '../scalar/AccountSettingsKey';
 
-const AddTwoFactorAuthTokenToIndividualResponse = new GraphQLObjectType({
+const GraphQLAddTwoFactorAuthTokenToIndividualResponse = new GraphQLObjectType({
   name: 'AddTwoFactorAuthTokenToIndividualResponse',
   description: 'Response for the addTwoFactorAuthTokenToIndividual mutation',
   fields: () => ({
     account: {
-      type: new GraphQLNonNull(Individual),
+      type: new GraphQLNonNull(GraphQLIndividual),
       description: 'The Individual that the 2FA has been enabled for',
     },
     recoveryCodes: {
@@ -256,7 +256,7 @@ const accountMutations = {
     },
   },
   addTwoFactorAuthTokenToIndividual: {
-    type: new GraphQLNonNull(AddTwoFactorAuthTokenToIndividualResponse),
+    type: new GraphQLNonNull(GraphQLAddTwoFactorAuthTokenToIndividualResponse),
     description: 'Add 2FA to the Individual if it does not have it. Scope: "account".',
     args: {
       account: {
@@ -321,7 +321,7 @@ const accountMutations = {
     },
   },
   removeTwoFactorAuthTokenFromIndividual: {
-    type: new GraphQLNonNull(Individual),
+    type: new GraphQLNonNull(GraphQLIndividual),
     description: 'Remove 2FA from the Individual if it has been enabled. Scope: "account".',
     args: {
       account: {
@@ -372,7 +372,7 @@ const accountMutations = {
     },
   },
   editAccount: {
-    type: new GraphQLNonNull(Host),
+    type: new GraphQLNonNull(GraphQLHost),
     description: 'Edit key properties of an account. Scope: "account".',
     args: {
       account: {

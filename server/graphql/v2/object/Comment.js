@@ -6,7 +6,7 @@ import { collectiveResolver, fromCollectiveResolver } from '../../common/comment
 import { getIdEncodeResolver } from '../identifiers';
 import { Account } from '../interface/Account';
 
-const Comment = new GraphQLObjectType({
+export const GraphQLComment = new GraphQLObjectType({
   name: 'Comment',
   description: 'This represents an Comment',
   fields: () => {
@@ -48,5 +48,3 @@ const Comment = new GraphQLObjectType({
     };
   },
 });
-
-export { Comment };

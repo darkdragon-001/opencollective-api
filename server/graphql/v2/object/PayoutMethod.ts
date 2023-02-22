@@ -7,7 +7,7 @@ import { checkScope } from '../../common/scope-check';
 import { PayoutMethodType } from '../enum/PayoutMethodType';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 
-const PayoutMethod = new GraphQLObjectType({
+const GraphQLPayoutMethod = new GraphQLObjectType({
   name: 'PayoutMethod',
   description: 'A payout method',
   fields: () => ({
@@ -65,4 +65,4 @@ const PayoutMethod = new GraphQLObjectType({
   }),
 });
 
-export default PayoutMethod;
+export default GraphQLPayoutMethod;

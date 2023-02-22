@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import HostApplication from '../object/HostApplication';
+import GraphQLHostApplication from '../object/HostApplication';
 
 const HostApplicationCollection = new GraphQLObjectType({
   name: 'HostApplicationCollection',
@@ -10,7 +10,7 @@ const HostApplicationCollection = new GraphQLObjectType({
   fields: () => ({
     ...CollectionFields,
     nodes: {
-      type: new GraphQLList(HostApplication),
+      type: new GraphQLList(GraphQLHostApplication),
     },
   }),
 });

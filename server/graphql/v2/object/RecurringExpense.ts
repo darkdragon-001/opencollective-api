@@ -5,9 +5,9 @@ import { RecurringExpenseInterval } from '../enum/RecurringExpenseInterval';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 
-import { Expense } from './Expense';
+import { GraphQLExpense } from './Expense';
 
-const RecurringExpense = new GraphQLObjectType({
+const GraphQLRecurringExpense = new GraphQLObjectType({
   name: 'RecurringExpense',
   description: 'A recurring expense object',
   fields: () => ({
@@ -45,7 +45,7 @@ const RecurringExpense = new GraphQLObjectType({
       description: 'The time this expense will cease to be recurring',
     },
     lastExpenseCreated: {
-      type: Expense,
+      type: GraphQLExpense,
       description: 'The last expense created by this recurring expense record paid for',
       resolve(recurringExpense) {
         return recurringExpense.getLastExpense();
@@ -54,4 +54,4 @@ const RecurringExpense = new GraphQLObjectType({
   }),
 });
 
-export default RecurringExpense;
+export default GraphQLRecurringExpense;

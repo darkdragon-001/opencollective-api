@@ -5,7 +5,7 @@ import { idEncode } from '../identifiers';
 import { Account } from '../interface/Account';
 import URL from '../scalar/URL';
 
-export const Webhook = new GraphQLObjectType({
+export const GraphQLWebhook = new GraphQLObjectType({
   name: 'Webhook',
   description: 'An webhook attached to an account',
   fields: () => ({

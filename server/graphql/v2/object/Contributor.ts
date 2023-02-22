@@ -5,7 +5,7 @@ import { getCollectiveAvatarUrl } from '../../../lib/collectivelib';
 import { ContributorRoleEnum } from '../../v1/types';
 import { ImageFormat } from '../enum';
 
-export const Contributor = new GraphQLObjectType({
+export const GraphQLContributor = new GraphQLObjectType({
   name: 'Contributor',
   description: `
     A person or an entity that contributes financially or by any other mean to the mission

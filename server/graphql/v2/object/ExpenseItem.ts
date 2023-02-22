@@ -7,7 +7,7 @@ import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { FileInfo } from '../interface/FileInfo';
 import URL from '../scalar/URL';
 
-const ExpenseItem = new GraphQLObjectType({
+const GraphQLExpenseItem = new GraphQLObjectType({
   name: 'ExpenseItem',
   description: 'Fields for an expense item',
   fields: () => ({
@@ -56,4 +56,4 @@ const ExpenseItem = new GraphQLObjectType({
   }),
 });
 
-export default ExpenseItem;
+export default GraphQLExpenseItem;

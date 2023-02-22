@@ -8,10 +8,10 @@ import { fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { WebhookCreateInput } from '../input/WebhookCreateInput';
 import { fetchWebhookWithReference, WebhookReferenceInput } from '../input/WebhookReferenceInput';
 import { WebhookUpdateInput } from '../input/WebhookUpdateInput';
-import { Webhook } from '../object/Webhook';
+import { GraphQLWebhook } from '../object/Webhook';
 
 const createWebhook = {
-  type: Webhook,
+  type: GraphQLWebhook,
   description: 'Create webhook. Scope: "webhooks".',
   args: {
     webhook: {
@@ -46,7 +46,7 @@ const createWebhook = {
 };
 
 const updateWebhook = {
-  type: Webhook,
+  type: GraphQLWebhook,
   description: 'Update webhook. Scope: "webhooks".',
   args: {
     webhook: {
@@ -84,7 +84,7 @@ const updateWebhook = {
 };
 
 const deleteWebhook = {
-  type: Webhook,
+  type: GraphQLWebhook,
   description: 'Delete webhook. Scope: "webhooks".',
   args: {
     webhook: {

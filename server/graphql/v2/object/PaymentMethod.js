@@ -11,11 +11,11 @@ import { PaymentMethodService } from '../enum/PaymentMethodService';
 import { PaymentMethodType } from '../enum/PaymentMethodType';
 import { idEncode, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
-import { Amount } from '../object/Amount';
-import { Host } from '../object/Host';
+import { GraphQLAmount } from '../object/Amount';
+import { GraphQLHost } from '../object/Host';
 import { OrdersCollectionArgs, OrdersCollectionResolver } from '../query/collection/OrdersCollectionQuery';
 
-export const PaymentMethod = new GraphQLObjectType({
+export const GraphQLPaymentMethod = new GraphQLObjectType({
   name: 'PaymentMethod',
   description: 'PaymentMethod model',
   fields: () => {
@@ -67,7 +67,7 @@ export const PaymentMethod = new GraphQLObjectType({
         resolve: getLegacyPaymentMethodType,
       },
       balance: {
-        type: new GraphQLNonNull(Amount),
+        type: new GraphQLNonNull(GraphQLAmount),
         description: 'Returns the balance amount and the currency of this paymentMethod',
         async resolve(paymentMethod, args, req) {
           if (!req.remoteUser) {
@@ -88,7 +88,7 @@ export const PaymentMethod = new GraphQLObjectType({
         },
       },
       sourcePaymentMethod: {
-        type: PaymentMethod,
+        type: GraphQLPaymentMethod,
         description: 'For gift cards, this field will return to the source payment method',
         async resolve(paymentMethod, _, req) {
           const collective = await req.loaders.Collective.byId.load(paymentMethod.CollectiveId);
@@ -129,7 +129,7 @@ export const PaymentMethod = new GraphQLObjectType({
         },
       },
       limitedToHosts: {
-        type: new GraphQLList(Host),
+        type: new GraphQLList(GraphQLHost),
         async resolve(paymentMethod, args, req) {
           let hosts;
           if (paymentMethod.type === 'prepaid') {
@@ -162,7 +162,7 @@ export const PaymentMethod = new GraphQLObjectType({
         type: GraphQLDateTime,
       },
       monthlyLimit: {
-        type: Amount,
+        type: GraphQLAmount,
         description: 'For monthly gift cards, this field will return the monthly limit',
         resolve(paymentMethod) {
           if (paymentMethod.type !== PAYMENT_METHOD_TYPE.GIFTCARD || !paymentMethod.monthlyLimitPerMember) {

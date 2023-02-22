@@ -6,24 +6,24 @@ import { canEditExpenseTags } from '../../common/expenses';
 import { NotFound, Unauthorized } from '../../errors';
 import { ExpenseReferenceInput, fetchExpenseWithReference } from '../input/ExpenseReferenceInput';
 import { fetchOrderWithReference, OrderReferenceInput } from '../input/OrderReferenceInput';
-import { Expense } from '../object/Expense';
-import { Order } from '../object/Order';
+import { GraphQLExpense } from '../object/Expense';
+import { GraphQLOrder } from '../object/Order';
 
-const TagResponse = new GraphQLObjectType({
+const GraphQLTagResponse = new GraphQLObjectType({
   name: 'TagResponse',
   fields: () => ({
     order: {
-      type: Order,
+      type: GraphQLOrder,
     },
     expense: {
-      type: Expense,
+      type: GraphQLExpense,
     },
   }),
 });
 
 const tagMutations = {
   setTags: {
-    type: new GraphQLNonNull(TagResponse),
+    type: new GraphQLNonNull(GraphQLTagResponse),
     args: {
       tags: {
         type: new GraphQLList(GraphQLString),

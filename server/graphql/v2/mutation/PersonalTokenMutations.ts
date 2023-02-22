@@ -12,10 +12,10 @@ import { fetchAccountWithReference } from '../input/AccountReferenceInput.js';
 import { PersonalTokenCreateInput } from '../input/PersonalTokenCreateInput';
 import { fetchPersonalTokenWithReference, PersonalTokenReferenceInput } from '../input/PersonalTokenReferenceInput';
 import { PersonalTokenUpdateInput } from '../input/PersonalTokenUpdateInput';
-import { PersonalToken } from '../object/PersonalToken';
+import { GraphQLPersonalToken } from '../object/PersonalToken';
 
 const createPersonalToken = {
-  type: PersonalToken,
+  type: GraphQLPersonalToken,
   args: {
     personalToken: {
       type: new GraphQLNonNull(PersonalTokenCreateInput),
@@ -54,7 +54,7 @@ const createPersonalToken = {
 };
 
 const updatePersonalToken = {
-  type: PersonalToken,
+  type: GraphQLPersonalToken,
   args: {
     personalToken: {
       type: new GraphQLNonNull(PersonalTokenUpdateInput),
@@ -79,7 +79,7 @@ const updatePersonalToken = {
 };
 
 const deletePersonalToken = {
-  type: PersonalToken,
+  type: GraphQLPersonalToken,
   args: {
     personalToken: {
       type: new GraphQLNonNull(PersonalTokenReferenceInput),

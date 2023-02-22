@@ -6,7 +6,7 @@ import { AccountWithContributions, AccountWithContributionsFields } from '../int
 import { AccountWithHost, AccountWithHostFields } from '../interface/AccountWithHost';
 import { AccountWithParent, AccountWithParentFields } from '../interface/AccountWithParent';
 
-export const Event = new GraphQLObjectType({
+export const GraphQLEvent = new GraphQLObjectType({
   name: 'Event',
   description: 'This represents an Event account',
   interfaces: () => [Account, AccountWithHost, AccountWithContributions, AccountWithParent],

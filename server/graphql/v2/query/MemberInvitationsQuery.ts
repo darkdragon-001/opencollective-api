@@ -4,10 +4,10 @@ import models, { Op } from '../../../models';
 import { Forbidden, ValidationFailed } from '../../errors';
 import { MemberRole } from '../enum/MemberRole';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
-import { MemberInvitation } from '../object/MemberInvitation';
+import { GraphQLMemberInvitation } from '../object/MemberInvitation';
 
 const MemberInvitationsQuery = {
-  type: new GraphQLList(MemberInvitation),
+  type: new GraphQLList(GraphQLMemberInvitation),
   description: '[AUTHENTICATED] Returns the pending invitations',
   args: {
     memberAccount: {

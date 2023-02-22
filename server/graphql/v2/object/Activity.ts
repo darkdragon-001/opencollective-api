@@ -11,12 +11,12 @@ import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 import { Transaction } from '../interface/Transaction';
 
-import { Expense } from './Expense';
-import { Host } from './Host';
-import { Individual } from './Individual';
-import { Order } from './Order';
+import { GraphQLExpense } from './Expense';
+import { GraphQLHost } from './Host';
+import { GraphQLIndividual } from './Individual';
+import { GraphQLOrder } from './Order';
 
-export const Activity = new GraphQLObjectType({
+export const GraphQLActivity = new GraphQLObjectType({
   name: 'Activity',
   description: 'An activity describing something that happened on the platform',
   fields: () => ({
@@ -52,7 +52,7 @@ export const Activity = new GraphQLObjectType({
       },
     },
     host: {
-      type: Host,
+      type: GraphQLHost,
       description: 'The host under which this activity happened, if any',
       resolve: async (activity, _, req: express.Request): Promise<Record<string, unknown>> => {
         if (activity.HostCollectiveId) {
@@ -61,7 +61,7 @@ export const Activity = new GraphQLObjectType({
       },
     },
     individual: {
-      type: Individual,
+      type: GraphQLIndividual,
       description: 'The person who triggered the action, if any',
       resolve: async (activity, _, req: express.Request): Promise<Record<string, unknown>> => {
         if (activity.UserId) {
@@ -73,7 +73,7 @@ export const Activity = new GraphQLObjectType({
       },
     },
     expense: {
-      type: Expense,
+      type: GraphQLExpense,
       description: 'The expense related to this activity, if any',
       resolve: async (activity, _, req: express.Request): Promise<Record<string, unknown>> => {
         if (activity.ExpenseId) {
@@ -82,7 +82,7 @@ export const Activity = new GraphQLObjectType({
       },
     },
     order: {
-      type: Order,
+      type: GraphQLOrder,
       description: 'The order related to this activity, if any',
       resolve: async (activity, _, req: express.Request): Promise<Record<string, unknown>> => {
         if (activity.OrderId) {

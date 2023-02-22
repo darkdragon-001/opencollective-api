@@ -10,10 +10,10 @@ import { fetchAccountWithReference } from '../input/AccountReferenceInput.js';
 import { ApplicationCreateInput } from '../input/ApplicationCreateInput';
 import { ApplicationReferenceInput, fetchApplicationWithReference } from '../input/ApplicationReferenceInput';
 import { ApplicationUpdateInput } from '../input/ApplicationUpdateInput';
-import { Application } from '../object/Application';
+import { GraphQLApplication } from '../object/Application';
 
 const createApplication = {
-  type: Application,
+  type: GraphQLApplication,
   args: {
     application: {
       type: new GraphQLNonNull(ApplicationCreateInput),
@@ -50,7 +50,7 @@ const createApplication = {
 };
 
 const updateApplication = {
-  type: Application,
+  type: GraphQLApplication,
   args: {
     application: {
       type: new GraphQLNonNull(ApplicationUpdateInput),
@@ -80,7 +80,7 @@ const updateApplication = {
 };
 
 const deleteApplication = {
-  type: Application,
+  type: GraphQLApplication,
   args: {
     application: {
       type: new GraphQLNonNull(ApplicationReferenceInput),

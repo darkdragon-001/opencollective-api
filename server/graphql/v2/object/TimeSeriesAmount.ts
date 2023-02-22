@@ -5,7 +5,7 @@ import moment from 'moment';
 import { TimeUnit } from '../enum/TimeUnit';
 import { getTimeSeriesFields, TimeSeries } from '../interface/TimeSeries';
 
-import { Amount } from './Amount';
+import { GraphQLAmount } from './Amount';
 
 export const getNumberOfDays = (startDate, endDate, collective) => {
   return Math.abs(moment(startDate || collective.createdAt).diff(moment(endDate || undefined), 'days'));
@@ -39,23 +39,23 @@ export const TimeSeriesArgs = {
   },
 };
 
-const TimeSeriesAmountNodes = new GraphQLObjectType({
+const GraphQLTimeSeriesAmountNodes = new GraphQLObjectType({
   name: 'TimeSeriesAmountNode',
   fields: () => ({
     date: { type: new GraphQLNonNull(GraphQLDateTime) },
-    amount: { type: new GraphQLNonNull(Amount) },
+    amount: { type: new GraphQLNonNull(GraphQLAmount) },
     label: { type: GraphQLString },
   }),
 });
 
-export const TimeSeriesAmount = new GraphQLObjectType({
+export const GraphQLTimeSeriesAmount = new GraphQLObjectType({
   name: 'TimeSeriesAmount',
   description: 'Amount time series',
   interfaces: [TimeSeries],
   fields: () => ({
     ...getTimeSeriesFields(),
     nodes: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(TimeSeriesAmountNodes))),
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLTimeSeriesAmountNodes))),
       description: 'Time series data points',
     },
   }),

@@ -17,11 +17,11 @@ import {
   fetchMemberInvitationWithReference,
   MemberInvitationReferenceInput,
 } from '../input/MemberInvitationReferenceInput';
-import { MemberInvitation } from '../object/MemberInvitation';
+import { GraphQLMemberInvitation } from '../object/MemberInvitation';
 
 const memberInvitationMutations = {
   inviteMember: {
-    type: new GraphQLNonNull(MemberInvitation),
+    type: new GraphQLNonNull(GraphQLMemberInvitation),
     description: 'Invite a new member to the Collective. Scope: "account".',
     args: {
       memberAccount: {
@@ -72,7 +72,7 @@ const memberInvitationMutations = {
     },
   },
   editMemberInvitation: {
-    type: MemberInvitation,
+    type: GraphQLMemberInvitation,
     description: 'Edit an existing member invitation of the Collective. Scope: "account".',
     args: {
       memberAccount: {

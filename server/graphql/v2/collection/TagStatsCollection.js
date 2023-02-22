@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
 
 import { Collection, CollectionFields } from '../interface/Collection';
-import { TagStats } from '../object/TagStats';
+import { GraphQLTagStats } from '../object/TagStats';
 
 export const TagStatsCollection = new GraphQLObjectType({
   name: 'TagStatsCollection',
@@ -11,7 +11,7 @@ export const TagStatsCollection = new GraphQLObjectType({
     return {
       ...CollectionFields,
       nodes: {
-        type: new GraphQLList(TagStats),
+        type: new GraphQLList(GraphQLTagStats),
       },
     };
   },

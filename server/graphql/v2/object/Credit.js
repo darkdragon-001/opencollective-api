@@ -4,7 +4,7 @@ import { allowContextPermission, PERMISSION_TYPE } from '../../common/context-pe
 import { Account } from '../interface/Account';
 import { Transaction, TransactionFields } from '../interface/Transaction';
 
-export const Credit = new GraphQLObjectType({
+export const GraphQLCredit = new GraphQLObjectType({
   name: 'Credit',
   description: 'This represents a Credit transaction',
   interfaces: () => [Transaction],

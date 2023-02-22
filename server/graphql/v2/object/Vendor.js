@@ -5,7 +5,7 @@ import { Account, AccountFields } from '../interface/Account';
 import { AccountWithContributions, AccountWithContributionsFields } from '../interface/AccountWithContributions';
 import { AccountWithHost, AccountWithHostFields } from '../interface/AccountWithHost';
 
-export const Vendor = new GraphQLObjectType({
+export const GraphQLVendor = new GraphQLObjectType({
   name: 'Vendor',
   description: 'This represents a Vendor account',
   interfaces: () => [Account, AccountWithHost, AccountWithContributions],

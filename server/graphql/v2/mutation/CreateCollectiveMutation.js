@@ -21,7 +21,7 @@ import { AccountReferenceInput, fetchAccountWithReference } from '../input/Accou
 import { CollectiveCreateInput } from '../input/CollectiveCreateInput';
 import { IndividualCreateInput } from '../input/IndividualCreateInput';
 import { InviteMemberInput } from '../input/InviteMemberInput';
-import { Collective } from '../object/Collective';
+import { GraphQLCollective } from '../object/Collective';
 
 const DEFAULT_COLLECTIVE_SETTINGS = {
   features: { conversations: true },
@@ -220,7 +220,7 @@ async function createCollective(_, args, req) {
 }
 
 const createCollectiveMutation = {
-  type: Collective,
+  type: GraphQLCollective,
   description: 'Create a Collective. Scope: "account".',
   args: {
     collective: {

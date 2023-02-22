@@ -44,11 +44,11 @@ import {
 } from '../input/ExpenseReferenceInput';
 import { ExpenseUpdateInput } from '../input/ExpenseUpdateInput';
 import { RecurringExpenseInput } from '../input/RecurringExpenseInput';
-import { Expense } from '../object/Expense';
+import { GraphQLExpense } from '../object/Expense';
 
 const expenseMutations = {
   createExpense: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'Submit an expense to a collective. Scope: "expenses".',
     args: {
       expense: {
@@ -105,7 +105,7 @@ const expenseMutations = {
     },
   },
   editExpense: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'To update an existing expense',
     args: {
       expense: {
@@ -212,7 +212,7 @@ const expenseMutations = {
     },
   },
   deleteExpense: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: `Delete an expense. Only work if the expense is rejected - please check permissions.canDelete. Scope: "expenses".`,
     args: {
       expense: {
@@ -255,7 +255,7 @@ const expenseMutations = {
     },
   },
   processExpense: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'Process the expense with the given action. Scope: "expenses".',
     args: {
       expense: {
@@ -351,7 +351,7 @@ const expenseMutations = {
     },
   },
   draftExpenseAndInviteUser: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'Persist an Expense as a draft and invite someone to edit and submit it. Scope: "expenses".',
     args: {
       expense: {
@@ -445,7 +445,7 @@ const expenseMutations = {
     },
   },
   resendDraftExpenseInvite: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'To re-send the invitation to complete a draft expense. Scope: "expenses".',
     args: {
       expense: {
@@ -485,7 +485,7 @@ const expenseMutations = {
     },
   },
   verifyExpense: {
-    type: new GraphQLNonNull(Expense),
+    type: new GraphQLNonNull(GraphQLExpense),
     description: 'To verify and unverified expense. Scope: "expenses".',
     args: {
       expense: {

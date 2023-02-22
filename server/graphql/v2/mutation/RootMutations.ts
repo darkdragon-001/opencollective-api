@@ -26,10 +26,10 @@ import {
 } from '../input/AccountReferenceInput';
 import { ExpenseReferenceInput, fetchExpensesWithReferences } from '../input/ExpenseReferenceInput';
 import { Account } from '../interface/Account';
-import { Expense } from '../object/Expense';
-import { MergeAccountsResponse } from '../object/MergeAccountsResponse';
+import { GraphQLExpense } from '../object/Expense';
+import { GraphQLMergeAccountsResponse } from '../object/MergeAccountsResponse';
 
-const BanAccountResponse = new GraphQLObjectType({
+const GraphQLBanAccountResponse = new GraphQLObjectType({
   name: 'BanAccountResponse',
   fields: () => ({
     isAllowed: {
@@ -138,7 +138,7 @@ export default {
     },
   },
   mergeAccounts: {
-    type: new GraphQLNonNull(MergeAccountsResponse),
+    type: new GraphQLNonNull(GraphQLMergeAccountsResponse),
     description: '[Root only] Merge two accounts, returns the result account',
     args: {
       fromAccount: {
@@ -178,7 +178,7 @@ export default {
     },
   },
   banAccount: {
-    type: new GraphQLNonNull(BanAccountResponse),
+    type: new GraphQLNonNull(GraphQLBanAccountResponse),
     description: '[Root only] Ban accounts',
     args: {
       account: {
@@ -224,7 +224,7 @@ export default {
     },
   },
   moveExpenses: {
-    type: new GraphQLNonNull(new GraphQLList(Expense)),
+    type: new GraphQLNonNull(new GraphQLList(GraphQLExpense)),
     description: '[Root only] A mutation to move expenses from one account to another',
     args: {
       expenses: {

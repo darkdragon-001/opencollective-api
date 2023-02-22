@@ -8,21 +8,21 @@ import { Forbidden, NotFound, Unauthorized, ValidationFailed } from '../../error
 import { idDecode, IDENTIFIER_TYPES } from '../identifiers';
 import { CommentReferenceInput } from '../input/CommentReferenceInput';
 import { UpdateReferenceInput } from '../input/UpdateReferenceInput';
-import { Comment } from '../object/Comment';
-import Update from '../object/Update';
+import { GraphQLComment } from '../object/Comment';
+import GraphQLUpdate from '../object/Update';
 
 /**
  * Object type for EmojiReaction mutation.
  */
-const EmojiReactionsResponse = new GraphQLObjectType({
+const GraphQLEmojiReactionsResponse = new GraphQLObjectType({
   name: 'EmojiReactionResponse',
   fields: () => ({
     update: {
-      type: Update,
+      type: GraphQLUpdate,
       description: 'Reference to the update corresponding to the emojis',
     },
     comment: {
-      type: Comment,
+      type: GraphQLComment,
       description: 'Reference to the comment corresponding to the emojis',
     },
   }),
@@ -30,7 +30,7 @@ const EmojiReactionsResponse = new GraphQLObjectType({
 
 const emojiReactionMutations = {
   addEmojiReaction: {
-    type: new GraphQLNonNull(EmojiReactionsResponse),
+    type: new GraphQLNonNull(GraphQLEmojiReactionsResponse),
     description: 'Add an emoji reaction. Scope: "conversations", "expenses" or "updates".',
     args: {
       emoji: {
@@ -63,7 +63,7 @@ const emojiReactionMutations = {
     },
   },
   removeEmojiReaction: {
-    type: new GraphQLNonNull(EmojiReactionsResponse),
+    type: new GraphQLNonNull(GraphQLEmojiReactionsResponse),
     description: 'Remove an emoji reaction. Scope: "conversations", "expenses" or "updates".',
     args: {
       comment: {

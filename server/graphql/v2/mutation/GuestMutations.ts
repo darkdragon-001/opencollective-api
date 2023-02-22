@@ -10,7 +10,7 @@ import { BadRequest, NotFound, RateLimitExceeded } from '../../errors';
 import { Account } from '../interface/Account';
 import EmailAddress from '../scalar/EmailAddress';
 
-const ConfirmGuestAccountResponse = new GraphQLObjectType({
+const GraphQLConfirmGuestAccountResponse = new GraphQLObjectType({
   name: 'ConfirmGuestAccountResponse',
   description: 'Response for the confirmGuestAccount mutation',
   fields: () => ({
@@ -99,7 +99,7 @@ const guestMutations = {
     },
   },
   confirmGuestAccount: {
-    type: new GraphQLNonNull(ConfirmGuestAccountResponse),
+    type: new GraphQLNonNull(GraphQLConfirmGuestAccountResponse),
     description: 'Mark an account as confirmed',
     args: {
       email: {

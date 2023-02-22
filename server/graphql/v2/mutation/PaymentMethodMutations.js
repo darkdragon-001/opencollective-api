@@ -10,25 +10,25 @@ import { Forbidden } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { CreditCardCreateInput } from '../input/CreditCardCreateInput';
 import { fetchPaymentMethodWithReference, PaymentMethodReferenceInput } from '../input/PaymentMethodReferenceInput';
-import { PaymentMethod } from '../object/PaymentMethod';
-import { StripeError } from '../object/StripeError';
+import { GraphQLPaymentMethod } from '../object/PaymentMethod';
+import { GraphQLStripeError } from '../object/StripeError';
 
-const CreditCardWithStripeError = new GraphQLObjectType({
+const GraphQLCreditCardWithStripeError = new GraphQLObjectType({
   name: 'CreditCardWithStripeError',
   fields: () => ({
     paymentMethod: {
-      type: new GraphQLNonNull(PaymentMethod),
+      type: new GraphQLNonNull(GraphQLPaymentMethod),
       description: 'The payment method created',
     },
     stripeError: {
-      type: StripeError,
+      type: GraphQLStripeError,
       description: 'This field will be set if there was an error with Stripe during strong customer authentication',
     },
   }),
 });
 
 const addCreditCard = {
-  type: new GraphQLNonNull(CreditCardWithStripeError),
+  type: new GraphQLNonNull(GraphQLCreditCardWithStripeError),
   description: 'Add a new payment method to be used with an Order. Scope: "orders".',
   args: {
     creditCardInfo: {
@@ -113,7 +113,7 @@ const addCreditCard = {
 };
 
 const confirmCreditCard = {
-  type: new GraphQLNonNull(CreditCardWithStripeError),
+  type: new GraphQLNonNull(GraphQLCreditCardWithStripeError),
   description: 'Confirm a credit card is ready for use after strong customer authentication. Scope: "orders".',
   args: {
     paymentMethod: {

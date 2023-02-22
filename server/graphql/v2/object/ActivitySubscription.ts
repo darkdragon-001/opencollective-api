@@ -6,9 +6,9 @@ import { ActivityChannel } from '../enum/ActivityChannel';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../identifiers';
 import { Account } from '../interface/Account';
 
-import { Individual } from './Individual';
+import { GraphQLIndividual } from './Individual';
 
-export const ActivitySubscription = new GraphQLObjectType({
+export const GraphQLActivitySubscription = new GraphQLObjectType({
   name: 'ActivitySubscription',
   fields: () => ({
     id: {
@@ -44,7 +44,7 @@ export const ActivitySubscription = new GraphQLObjectType({
       },
     },
     individual: {
-      type: new GraphQLNonNull(Individual),
+      type: new GraphQLNonNull(GraphQLIndividual),
       description: 'The user who defined the setting',
       resolve: async (notification, _, req: express.Request): Promise<Record<string, unknown>> => {
         if (notification.UserId) {

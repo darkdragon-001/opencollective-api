@@ -3,10 +3,10 @@ import { GraphQLString } from 'graphql';
 import models from '../../../models';
 import { idDecode, IDENTIFIER_TYPES } from '../identifiers';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
-import Update from '../object/Update';
+import GraphQLUpdate from '../object/Update';
 
 const UpdateQuery = {
-  type: Update,
+  type: GraphQLUpdate,
   args: {
     id: {
       type: GraphQLString,

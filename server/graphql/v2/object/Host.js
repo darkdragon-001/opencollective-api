@@ -43,14 +43,14 @@ import { AccountWithContributions, AccountWithContributionsFields } from '../int
 import { CollectionArgs } from '../interface/Collection';
 import URL from '../scalar/URL';
 
-import { Amount } from './Amount';
-import { ContributionStats } from './ContributionStats';
-import { ExpenseStats } from './ExpenseStats';
-import { HostMetrics } from './HostMetrics';
-import { HostMetricsTimeSeries } from './HostMetricsTimeSeries';
-import { HostPlan } from './HostPlan';
-import { PaymentMethod } from './PaymentMethod';
-import PayoutMethod from './PayoutMethod';
+import { GraphQLAmount } from './Amount';
+import { GraphQLContributionStats } from './ContributionStats';
+import { GraphQLExpenseStats } from './ExpenseStats';
+import { GraphQLHostMetrics } from './HostMetrics';
+import { GraphQLHostMetricsTimeSeries } from './HostMetricsTimeSeries';
+import { GraphQLHostPlan } from './HostPlan';
+import { GraphQLPaymentMethod } from './PaymentMethod';
+import GraphQLPayoutMethod from './PayoutMethod';
 
 const getFilterDateRange = (startDate, endDate) => {
   let dateRange;
@@ -80,7 +80,7 @@ const getTimeUnit = numberOfDays => {
   }
 };
 
-export const Host = new GraphQLObjectType({
+export const GraphQLHost = new GraphQLObjectType({
   name: 'Host',
   description: 'This represents an Host account',
   interfaces: () => [Account, AccountWithContributions],
@@ -113,13 +113,13 @@ export const Host = new GraphQLObjectType({
         },
       },
       plan: {
-        type: new GraphQLNonNull(HostPlan),
+        type: new GraphQLNonNull(GraphQLHostPlan),
         resolve(host) {
           return host.getPlan();
         },
       },
       hostMetrics: {
-        type: new GraphQLNonNull(HostMetrics),
+        type: new GraphQLNonNull(GraphQLHostMetrics),
         args: {
           account: {
             type: new GraphQLList(new GraphQLNonNull(AccountReferenceInput)),
@@ -148,7 +148,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       hostMetricsTimeSeries: {
-        type: new GraphQLNonNull(HostMetricsTimeSeries),
+        type: new GraphQLNonNull(GraphQLHostMetricsTimeSeries),
         args: {
           account: {
             type: new GraphQLList(new GraphQLNonNull(AccountReferenceInput)),
@@ -206,7 +206,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       bankAccount: {
-        type: PayoutMethod,
+        type: GraphQLPayoutMethod,
         async resolve(collective, _, req) {
           const payoutMethods = await req.loaders.PayoutMethod.byCollectiveId.load(collective.id);
           const payoutMethod = payoutMethods.find(c => c.type === 'BANK_ACCOUNT' && c.data?.isManualBankTransfer);
@@ -219,7 +219,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       paypalPreApproval: {
-        type: PaymentMethod,
+        type: GraphQLPaymentMethod,
         description: 'Paypal preapproval info. Returns null if PayPal account is not connected.',
         resolve: async host => {
           return models.PaymentMethod.findOne({
@@ -271,7 +271,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       transferwiseBalances: {
-        type: new GraphQLList(Amount),
+        type: new GraphQLList(GraphQLAmount),
         description: 'Transferwise balances. Returns null if Transferwise account is not connected.',
         resolve: async host => {
           const transferwiseAccount = await models.ConnectedAccount.findOne({
@@ -508,7 +508,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       contributionStats: {
-        type: new GraphQLNonNull(ContributionStats),
+        type: new GraphQLNonNull(GraphQLContributionStats),
         args: {
           account: {
             type: new GraphQLList(new GraphQLNonNull(AccountReferenceInput)),
@@ -586,7 +586,7 @@ export const Host = new GraphQLObjectType({
         },
       },
       expenseStats: {
-        type: new GraphQLNonNull(ExpenseStats),
+        type: new GraphQLNonNull(GraphQLExpenseStats),
         args: {
           account: {
             type: new GraphQLList(new GraphQLNonNull(AccountReferenceInput)),

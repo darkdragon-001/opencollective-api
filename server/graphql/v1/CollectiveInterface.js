@@ -29,8 +29,8 @@ import { hostResolver } from '../common/collective';
 import { getContextPermission, PERMISSION_TYPE } from '../common/context-permissions';
 import { getFeatureStatusResolver } from '../common/features';
 import { getIdEncodeResolver, IDENTIFIER_TYPES } from '../v2/identifiers';
-import { Policies } from '../v2/object/Policies';
-import { SocialLink } from '../v2/object/SocialLink';
+import { GraphQLPolicies } from '../v2/object/Policies';
+import { GraphQLSocialLink } from '../v2/object/SocialLink';
 
 import { ApplicationType } from './Application';
 import { TransactionInterfaceType } from './TransactionInterface';
@@ -791,7 +791,7 @@ export const CollectiveInterfaceType = new GraphQLInterfaceType({
       repositoryUrl: { type: GraphQLString, deprecationReason: '2023-01-16: Please use socialLinks' },
       website: { type: GraphQLString, deprecationReason: '2023-01-16: Please use socialLinks' },
       socialLinks: {
-        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SocialLink))),
+        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLSocialLink))),
       },
       updates: {
         type: new GraphQLList(UpdateType),
@@ -885,7 +885,7 @@ export const CollectiveInterfaceType = new GraphQLInterfaceType({
         description: 'Categories set by Open Collective to help moderation.',
       },
       policies: {
-        type: new GraphQLNonNull(Policies),
+        type: new GraphQLNonNull(GraphQLPolicies),
         description:
           'Policies for the account. To see non-public policies you need to be admin and have the scope: "account".',
       },
@@ -1692,7 +1692,7 @@ const CollectiveFields = () => {
       },
     },
     socialLinks: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(SocialLink))),
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLSocialLink))),
       async resolve(collective, _, req) {
         return req.loaders.SocialLink.byCollectiveId.load(collective.id);
       },
@@ -1967,7 +1967,7 @@ const CollectiveFields = () => {
       },
     },
     policies: {
-      type: new GraphQLNonNull(Policies),
+      type: new GraphQLNonNull(GraphQLPolicies),
       resolve(account) {
         return account;
       },

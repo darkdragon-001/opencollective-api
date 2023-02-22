@@ -10,7 +10,7 @@ import { checkRemoteUserCanUseAccount } from '../../common/scope-check';
 import { BadRequest, NotFound, Unauthorized } from '../../errors';
 import { AccountReferenceInput, fetchAccountWithReference } from '../input/AccountReferenceInput';
 import { EventCreateInput } from '../input/EventCreateInput';
-import { Event } from '../object/Event';
+import { GraphQLEvent } from '../object/Event';
 
 const DEFAULT_EVENT_SETTINGS = {};
 
@@ -56,7 +56,7 @@ async function createEvent(_, args, req) {
 }
 
 const createEventMutation = {
-  type: Event,
+  type: GraphQLEvent,
   description: 'Create an Event. Scope: "account".',
   args: {
     event: {

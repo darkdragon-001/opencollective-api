@@ -4,11 +4,11 @@ import { createUpdate, deleteUpdate, editUpdate, publishUpdate, unpublishUpdate 
 import { UpdateAudienceType } from '../enum';
 import { UpdateCreateInput } from '../input/UpdateCreateInput';
 import { UpdateUpdateInput } from '../input/UpdateUpdateInput';
-import Update from '../object/Update';
+import GraphQLUpdate from '../object/Update';
 
 const updateMutations = {
   createUpdate: {
-    type: new GraphQLNonNull(Update),
+    type: new GraphQLNonNull(GraphQLUpdate),
     description: 'Create update. Scope: "updates".',
     args: {
       update: {
@@ -20,7 +20,7 @@ const updateMutations = {
     },
   },
   editUpdate: {
-    type: new GraphQLNonNull(Update),
+    type: new GraphQLNonNull(GraphQLUpdate),
     description: 'Edit update. Scope: "updates".',
     args: {
       update: {
@@ -32,7 +32,7 @@ const updateMutations = {
     },
   },
   publishUpdate: {
-    type: new GraphQLNonNull(Update),
+    type: new GraphQLNonNull(GraphQLUpdate),
     description: 'Publish update. Scope: "updates".',
     args: {
       id: {
@@ -47,7 +47,7 @@ const updateMutations = {
     },
   },
   unpublishUpdate: {
-    type: new GraphQLNonNull(Update),
+    type: new GraphQLNonNull(GraphQLUpdate),
     description: 'Unpublish update. Scope: "updates".',
     args: {
       id: {
@@ -59,7 +59,7 @@ const updateMutations = {
     },
   },
   deleteUpdate: {
-    type: new GraphQLNonNull(Update),
+    type: new GraphQLNonNull(GraphQLUpdate),
     description: 'Delete update. Scope: "updates".',
     args: {
       id: {

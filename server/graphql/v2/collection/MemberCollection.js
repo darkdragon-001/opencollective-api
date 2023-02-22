@@ -2,7 +2,7 @@ import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
 import { AccountType, MemberRole } from '../enum';
 import { Collection, CollectionFields } from '../interface/Collection';
-import { Member, MemberOf } from '../object/Member';
+import { GraphQLMember, GraphQLMemberOf } from '../object/Member';
 
 export const MemberCollection = new GraphQLObjectType({
   name: 'MemberCollection',
@@ -12,7 +12,7 @@ export const MemberCollection = new GraphQLObjectType({
     return {
       ...CollectionFields,
       nodes: {
-        type: new GraphQLList(Member),
+        type: new GraphQLList(GraphQLMember),
       },
     };
   },
@@ -41,7 +41,7 @@ export const MemberOfCollection = new GraphQLObjectType({
     return {
       ...CollectionFields,
       nodes: {
-        type: new GraphQLList(MemberOf),
+        type: new GraphQLList(GraphQLMemberOf),
       },
       roles: {
         type: new GraphQLList(MemberOfCollectionRole),

@@ -6,11 +6,11 @@ import {
   fetchOAuthAuthorizationWithReference,
   OAuthAuthorizationReferenceInput,
 } from '../input/OAuthAuthorizationReferenceInput';
-import { OAuthAuthorization } from '../object/OAuthAuthorization';
+import { GraphQLOAuthAuthorization } from '../object/OAuthAuthorization';
 
 const oAuthAuthorizationMutations = {
   revokeOAuthAuthorization: {
-    type: new GraphQLNonNull(OAuthAuthorization),
+    type: new GraphQLNonNull(GraphQLOAuthAuthorization),
     description: 'Revoke an OAuth authorization. Scope: "account".',
     args: {
       oAuthAuthorization: {

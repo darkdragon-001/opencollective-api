@@ -3,9 +3,9 @@ import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { Account, AccountFields } from '../interface/Account';
 import { AccountWithContributions, AccountWithContributionsFields } from '../interface/AccountWithContributions';
 
-import { Host } from './Host';
+import { GraphQLHost } from './Host';
 
-export const Organization = new GraphQLObjectType({
+export const GraphQLOrganization = new GraphQLObjectType({
   name: 'Organization',
   description: 'This represents an Organization account',
   interfaces: () => [Account, AccountWithContributions],
@@ -36,7 +36,7 @@ export const Organization = new GraphQLObjectType({
         },
       },
       host: {
-        type: Host,
+        type: GraphQLHost,
         description: 'If the organization if a host account, this will return the matching Host object',
         resolve(collective) {
           if (collective.isHostAccount) {

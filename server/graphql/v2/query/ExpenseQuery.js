@@ -2,10 +2,10 @@ import { GraphQLString } from 'graphql';
 
 import expenseStatus from '../../../constants/expense_status';
 import { ExpenseReferenceInput, fetchExpenseWithReference } from '../input/ExpenseReferenceInput';
-import { Expense } from '../object/Expense';
+import { GraphQLExpense } from '../object/Expense';
 
 const ExpenseQuery = {
-  type: Expense,
+  type: GraphQLExpense,
   args: {
     id: {
       type: GraphQLString,

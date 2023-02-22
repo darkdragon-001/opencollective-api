@@ -11,7 +11,7 @@ import { AccountReferenceInput, fetchAccountWithReference } from '../input/Accou
 import { AmountInput, getValueInCentsFromAmountInput } from '../input/AmountInput';
 import { fetchTierWithReference, TierReferenceInput } from '../input/TierReferenceInput';
 
-const PaypalPlan = new GraphQLObjectType({
+const GraphQLPaypalPlan = new GraphQLObjectType({
   name: 'PaypalPlan',
   description: 'A PayPal plan to associate with a contribution',
   fields: () => ({
@@ -22,7 +22,7 @@ const PaypalPlan = new GraphQLObjectType({
 });
 
 const PaypalPlanQuery = {
-  type: new GraphQLNonNull(PaypalPlan),
+  type: new GraphQLNonNull(GraphQLPaypalPlan),
   args: {
     account: {
       type: new GraphQLNonNull(AccountReferenceInput),

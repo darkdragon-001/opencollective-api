@@ -3,7 +3,7 @@ import { get } from 'lodash';
 
 import { FileInfo, fileInfoFields } from '../interface/FileInfo';
 
-export const ImageFileInfo = new GraphQLObjectType({
+export const GraphQLImageFileInfo = new GraphQLObjectType({
   name: 'ImageFileInfo',
   description: 'Exposes information about an uploaded image file',
   interfaces: () => [FileInfo],

@@ -49,16 +49,16 @@ import PaymentIntentInput from '../input/PaymentIntentInput';
 import { getLegacyPaymentMethodFromPaymentMethodInput } from '../input/PaymentMethodInput';
 import { fetchPaymentMethodWithReference, PaymentMethodReferenceInput } from '../input/PaymentMethodReferenceInput';
 import { fetchTierWithReference, TierReferenceInput } from '../input/TierReferenceInput';
-import { Order } from '../object/Order';
+import { GraphQLOrder } from '../object/Order';
 import { canEdit, canMarkAsExpired, canMarkAsPaid } from '../object/OrderPermissions';
-import PaymentIntent from '../object/PaymentIntent';
-import { StripeError } from '../object/StripeError';
+import GraphQLPaymentIntent from '../object/PaymentIntent';
+import { GraphQLStripeError } from '../object/StripeError';
 
-const OrderWithPayment = new GraphQLObjectType({
+const GraphQLOrderWithPayment = new GraphQLObjectType({
   name: 'OrderWithPayment',
   fields: () => ({
     order: {
-      type: new GraphQLNonNull(Order),
+      type: new GraphQLNonNull(GraphQLOrder),
       description: 'The order created',
     },
     guestToken: {
@@ -66,7 +66,7 @@ const OrderWithPayment = new GraphQLObjectType({
       description: 'If donating as a guest, this will contain your guest token to confirm your order',
     },
     stripeError: {
-      type: StripeError,
+      type: GraphQLStripeError,
       description:
         'This field will be set if the order was created but there was an error with Stripe during the payment',
     },
@@ -75,7 +75,7 @@ const OrderWithPayment = new GraphQLObjectType({
 
 const orderMutations = {
   createOrder: {
-    type: new GraphQLNonNull(OrderWithPayment),
+    type: new GraphQLNonNull(GraphQLOrderWithPayment),
     description: 'To submit a new order. Scope: "orders".',
     args: {
       order: {
@@ -156,7 +156,7 @@ const orderMutations = {
     },
   },
   cancelOrder: {
-    type: Order,
+    type: GraphQLOrder,
     description: 'Cancel an order. Scope: "orders".',
     args: {
       order: {
@@ -225,7 +225,7 @@ const orderMutations = {
     },
   },
   updateOrder: {
-    type: Order,
+    type: GraphQLOrder,
     description: `Update an Order's amount, tier, or payment method. Scope: "orders".`,
     args: {
       order: {
@@ -332,7 +332,7 @@ const orderMutations = {
     },
   },
   confirmOrder: {
-    type: new GraphQLNonNull(OrderWithPayment),
+    type: new GraphQLNonNull(GraphQLOrderWithPayment),
     description: 'Confirm an order (strong customer authentication). Scope: "orders".',
     args: {
       order: {
@@ -359,7 +359,7 @@ const orderMutations = {
     },
   },
   processPendingOrder: {
-    type: new GraphQLNonNull(Order),
+    type: new GraphQLNonNull(GraphQLOrder),
     description: 'A mutation for the host to approve or reject an order. Scope: "orders".',
     args: {
       order: {
@@ -463,7 +463,7 @@ const orderMutations = {
     },
   },
   moveOrders: {
-    type: new GraphQLNonNull(new GraphQLList(Order)),
+    type: new GraphQLNonNull(new GraphQLList(GraphQLOrder)),
     description: '[Root only] A mutation to move orders from one account to another',
     args: {
       orders: {
@@ -675,7 +675,7 @@ const orderMutations = {
     },
   },
   createPaymentIntent: {
-    type: new GraphQLNonNull(PaymentIntent),
+    type: new GraphQLNonNull(GraphQLPaymentIntent),
     description: 'Creates a Stripe payment intent',
     args: {
       paymentIntent: {
@@ -765,7 +765,7 @@ const orderMutations = {
     },
   },
   createPendingOrder: {
-    type: new GraphQLNonNull(Order),
+    type: new GraphQLNonNull(GraphQLOrder),
     description: 'To submit a new order. Scope: "orders".',
     args: {
       order: {
@@ -836,7 +836,7 @@ const orderMutations = {
     },
   },
   editPendingOrder: {
-    type: new GraphQLNonNull(Order),
+    type: new GraphQLNonNull(GraphQLOrder),
     description: 'To edit a pending order. Scope: "orders".',
     args: {
       order: {
