@@ -215,7 +215,7 @@ export async function createCollectiveFromGithub(_, args, req) {
     collectiveData.CreatedByUserId = user.id;
     collectiveData.LastEditedByUserId = user.id;
     collective = await models.Collective.create(collectiveData);
-    const host = await models.Collective.findByPk(defaultHostCollective('opensource').CollectiveId);
+    const host = await req.loaders.Collective.byId.load(defaultHostCollective('opensource').CollectiveId);
     const promises = [
       collective.addUserWithRole(user, roles.ADMIN),
       collective.addHost(host, user, { shouldAutomaticallyApprove: true }),
@@ -272,7 +272,7 @@ export async function createCollectiveFromGithub(_, args, req) {
     throw new Error(err.message);
   }
 
-  const host = await models.Collective.findByPk(defaultHostCollective('opensource').CollectiveId);
+  const host = await req.loaders.Collective.byId.load(defaultHostCollective('opensource').CollectiveId);
   const promises = [
     collective.addUserWithRole(user, roles.ADMIN),
     collective.addHost(host, user, { skipCollectiveApplyActivity: true }),
@@ -527,7 +527,7 @@ export async function archiveCollective(_, args, req) {
     throw new Unauthorized('You need to be logged in to archive a collective');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
 
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
@@ -606,7 +606,7 @@ export async function unarchiveCollective(_, args, req) {
     throw new Unauthorized('You need to be logged in to unarchive a collective');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }
@@ -618,7 +618,7 @@ export async function unarchiveCollective(_, args, req) {
   await twoFactorAuthLib.enforceForAccount(req, collective, { onlyAskOnLogin: true });
 
   if (collective.type === types.EVENT || collective.type === types.PROJECT) {
-    const parentCollective = await models.Collective.findByPk(collective.ParentCollectiveId);
+    const parentCollective = await req.loaders.Collective.byId.load(collective.ParentCollectiveId);
     const updatedCollective = collective.update({
       deactivatedAt: null,
       isActive: parentCollective.isActive,
@@ -639,7 +639,7 @@ export async function deleteCollective(_, args, req) {
     throw new Unauthorized('You need to be logged in to delete a collective');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }
@@ -670,7 +670,7 @@ export async function activateCollectiveAsHost(_, args, req) {
     throw new Unauthorized('You need to be logged in to activate a collective as Host.');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }
@@ -689,7 +689,7 @@ export async function deactivateCollectiveAsHost(_, args, req) {
     throw new Unauthorized('You need to be logged in to deactivate a collective as Host.');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }
@@ -708,7 +708,7 @@ export async function activateBudget(_, args, req) {
     throw new Unauthorized('You need to be logged in to activate budget.');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }
@@ -727,7 +727,7 @@ export async function deactivateBudget(_, args, req) {
     throw new Unauthorized('You need to be logged in to deactivate budget.');
   }
 
-  const collective = await models.Collective.findByPk(args.id);
+  const collective = await req.loaders.Collective.byId.load(args.id);
   if (!collective) {
     throw new NotFound(`Collective with id ${args.id} not found`);
   }

@@ -381,7 +381,7 @@ const orderMutations = {
 
       let order = await fetchOrderWithReference(args.order);
       const toAccount = await req.loaders.Collective.byId.load(order.CollectiveId);
-      const host = await toAccount.getHostCollective();
+      const host = await toAccount.getHostCollective({ loaders: req.loaders });
 
       if (!req.remoteUser?.isAdminOfCollective(host)) {
         throw new Unauthorized('Only host admins can process orders');
@@ -785,7 +785,7 @@ const orderMutations = {
       }
 
       const toAccount = await fetchAccountWithReference(args.order.toAccount, { throwIfMissing: true });
-      const host = await toAccount.getHostCollective();
+      const host = await toAccount.getHostCollective({ loaders: req.loaders });
 
       if (!req.remoteUser?.isAdminOfCollective(host)) {
         throw new Unauthorized('Only host admins can process orders');
@@ -860,7 +860,7 @@ const orderMutations = {
         include: [{ model: models.Collective, as: 'collective' }],
       });
 
-      const host = await order.collective.getHostCollective();
+      const host = await order.collective.getHostCollective({ loaders: req.loaders });
       if (!req.remoteUser?.isAdminOfCollective(host)) {
         throw new Unauthorized('Only host admins can process orders');
       }

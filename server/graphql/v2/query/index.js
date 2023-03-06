@@ -1,4 +1,3 @@
-import models from '../../../models';
 import { Individual } from '../object/Individual';
 
 import AccountsCollectionQuery from './collection/AccountsCollectionQuery';
@@ -59,7 +58,7 @@ const query = {
       if (!req.remoteUser) {
         return null;
       } else {
-        return models.Collective.findByPk(req.remoteUser.CollectiveId);
+        return req.loaders.Collective.byId.load(req.remoteUser.CollectiveId);
       }
     },
   },
@@ -69,7 +68,7 @@ const query = {
       if (!req.remoteUser) {
         return null;
       } else {
-        return models.Collective.findByPk(req.remoteUser.CollectiveId);
+        return req.loaders.Collective.byId.load(req.remoteUser.CollectiveId);
       }
     },
   },

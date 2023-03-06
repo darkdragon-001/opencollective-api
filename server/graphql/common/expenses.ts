@@ -811,7 +811,7 @@ export const scheduleExpenseForPayment = async (
     throw new Forbidden("You're authenticated but you can't schedule this expense for payment");
   }
 
-  const host = await expense.collective.getHostCollective();
+  const host = await expense.collective.getHostCollective({ loaders: req.loaders });
   if (expense.currency !== expense.collective.currency && !hasMultiCurrency(expense.collective, host)) {
     throw new Unauthorized('Multi-currency expenses are not enabled for this collective');
   }
@@ -2046,7 +2046,7 @@ export async function payExpense(req: express.Request, args: PayExpenseArgs): Pr
     if (!(await canPayExpense(req, expense))) {
       throw new Unauthorized("You don't have permission to pay this expense");
     }
-    const host = await expense.collective.getHostCollective();
+    const host = await expense.collective.getHostCollective({ loaders: req.loaders });
     if (expense.currency !== expense.collective.currency && !hasMultiCurrency(expense.collective, host)) {
       throw new Unauthorized('Multi-currency expenses are not enabled for this collective');
     }
@@ -2159,7 +2159,7 @@ export async function payExpense(req: express.Request, args: PayExpenseArgs): Pr
         });
       } else if (payoutMethodType === PayoutMethodTypes.ACCOUNT_BALANCE) {
         const payee = expense.fromCollective;
-        const payeeHost = await payee.getHostCollective();
+        const payeeHost = await payee.getHostCollective({ loaders: req.loaders });
         if (!payeeHost) {
           throw new Error('The payee needs to have an Host to able to be paid on its Open Collective balance.');
         }
@@ -2258,7 +2258,7 @@ export async function quoteExpense(expense_, { req }) {
     throw new Unauthorized("You don't have permission to pay this expense");
   }
 
-  const host = await expense.collective.getHostCollective();
+  const host = await expense.collective.getHostCollective({ loaders: req.loaders });
   if (payoutMethodType === PayoutMethodTypes.BANK_ACCOUNT) {
     const [connectedAccount] = await host.getConnectedAccounts({
       where: { service: 'transferwise', deletedAt: null },

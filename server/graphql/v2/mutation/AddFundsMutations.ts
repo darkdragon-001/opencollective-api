@@ -61,7 +61,7 @@ export const addFundsMutation = {
       }
     }
 
-    const host = await account.getHostCollective();
+    const host = await account.getHostCollective({ loaders: req.loaders });
     if (!req.remoteUser.isAdmin(host.id) && !req.remoteUser.isRoot()) {
       throw new Error('Only an site admin or collective host admin can add fund');
     }
