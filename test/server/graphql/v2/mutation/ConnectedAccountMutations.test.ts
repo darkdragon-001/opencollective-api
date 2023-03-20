@@ -16,6 +16,10 @@ describe('server/graphql/v2/mutation/ConnectedAccountMutations', () => {
   });
   beforeEach(utils.resetTestDB);
 
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   describe('createConnectedAccount', () => {
     const createConnectedAccountMutation = gqlV2/* GraphQL */ `
       mutation CreateConnectedAccount(
