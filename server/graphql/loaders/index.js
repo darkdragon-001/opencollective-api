@@ -28,6 +28,7 @@ import {
   generateCountAdminMembersOfCollective,
   generateRemoteUserIsAdminOfHostedAccountLoader,
 } from './members';
+import * as orderLoaders from './order';
 import { generateCollectivePayoutMethodsLoader, generateCollectivePaypalPayoutMethodsLoader } from './payout-method';
 import * as transactionLoaders from './transactions';
 import updatesLoader from './updates';
@@ -663,6 +664,8 @@ export const loaders = req => {
       ),
     ),
   };
+  // Order - activities
+  context.loaders.Order.activities = orderLoaders.generateOrderActivitiesLoader(req, cache);
 
   /** *** Member *****/
 

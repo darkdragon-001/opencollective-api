@@ -23,6 +23,7 @@ import { Amount } from '../object/Amount';
 import { PaymentMethod } from '../object/PaymentMethod';
 import { Tier } from '../object/Tier';
 
+import { Activity } from './Activity';
 import { MemberOf } from './Member';
 import OrderPermissions from './OrderPermissions';
 import { OrderTax } from './OrderTax';
@@ -249,6 +250,13 @@ export const Order = new GraphQLObjectType({
         description: 'The permissions given to current logged in user for this order',
         async resolve(order) {
           return order; // Individual fields are set by OrderPermissions resolvers
+        },
+      },
+      activities: {
+        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Activity))),
+        description: 'The list of activities (ie. approved, edited, etc) for this Order ordered by date ascending',
+        async resolve(order, _, req) {
+          return await req.loaders.Order.activities.load(order.id);
         },
       },
       data: {
