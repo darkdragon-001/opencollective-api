@@ -12985,6 +12985,7 @@ type Mutation {
     Individual that will have 2FA added to it
     """
     account: AccountReferenceInput!
+    type: TwoFactorMethod
 
     """
     The generated secret to save to the Individual
@@ -13000,11 +13001,12 @@ type Mutation {
     Account that will have 2FA removed from it
     """
     account: AccountReferenceInput!
+    type: TwoFactorMethod
 
     """
     The 6-digit 2FA code
     """
-    code: String!
+    code: String
   ): Individual!
 
   """
@@ -14206,6 +14208,14 @@ type AddTwoFactorAuthTokenToIndividualResponse {
   The recovery codes for the Individual to write down
   """
   recoveryCodes: [String]
+}
+
+"""
+A two factor authentication method
+"""
+enum TwoFactorMethod {
+  TOTP
+  YUBIKEY_OTP
 }
 
 input AccountUpdateInput {
