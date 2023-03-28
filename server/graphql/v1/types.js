@@ -24,6 +24,7 @@ import roles from '../../constants/roles';
 import { getCollectiveAvatarUrl } from '../../lib/collectivelib';
 import { filterContributors } from '../../lib/contributors';
 import { reportMessageToSentry } from '../../lib/sentry';
+import twoFactorAuthLib from '../../lib/two-factor-authentication';
 import models, { Op, sequelize } from '../../models';
 import { PayoutMethodTypes } from '../../models/PayoutMethod';
 import * as commonComment from '../common/comment';
@@ -256,7 +257,7 @@ export const UserType = new GraphQLObjectType({
         type: GraphQLBoolean,
         resolve(user, _, req) {
           if (req.remoteUser.id === user.id) {
-            return Boolean(user.twoFactorAuthToken);
+            return twoFactorAuthLib.userHasTwoFactorAuthEnabled(user);
           }
         },
       },
